@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12801065433",
+    "project_id": "anandita-c67ba",
+    "storage_bucket": "anandita-c67ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12801065433:android:fabee83f004f5b9a2859c8",
+        "android_client_info": {
+          "package_name": "com.anandita.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12801065433-90bd6ndi7hroi54mlvtc5g285dej2ac6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsD75Pz7Z4ktjKdLHa20qNTn4Ws5NLr3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12801065433-90bd6ndi7hroi54mlvtc5g285dej2ac6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
