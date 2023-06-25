@@ -210,27 +210,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _init() async {
-    // EasyLoading.show(
-    //     status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String encodedAuth = prefs.getString('auth') ?? "{}";
+    EasyLoading.show(
+        status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String encodedAuth = prefs.getString('auth') ?? "{}";
 
-    // DashboardModel _dashboardData = await _dashboardService.index();
-    // setState(() {
-    //   _auth = json.decode(encodedAuth);
-    //   _dashboard = _dashboardData;
-    // });
-    // EasyLoading.dismiss();
+    setState(() {
+      _auth = json.decode(encodedAuth);
+    });
+    EasyLoading.dismiss();
   }
 
   Future<void> _refresh() async {
-    EasyLoading.show(
-        status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
-    DashboardModel _dashboardData = await _dashboardService.index();
-    setState(() {
-      _dashboard = _dashboardData;
-    });
-    EasyLoading.dismiss();
+    
   }
 
   @override

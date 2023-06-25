@@ -45,16 +45,14 @@ class _SignInState extends State<SignIn> {
         firebaseMessaging.setNotifications();
         _token = await firebaseMessaging.getToken();
       }
-      const MainScreen().launch(context);
-      // EasyLoading.show(
-      //     status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
-      // _authService
-      //     .login(
-      //         username: _username.text, password: _password.text, token: _token)
-      //     .then((Auth auth) => const MainScreen().launch(context))
-      //     .whenComplete(() {
-      //   EasyLoading.dismiss();
-      // });
+      EasyLoading.show(
+          status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
+      _authService
+          .login(
+              username: _username.text, password: _password.text, token: _token)
+          .whenComplete(() {
+        EasyLoading.dismiss();
+      });
     }
   }
 

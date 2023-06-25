@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loakulukota_app/models/auth.dart';
+import 'package:loakulukota_app/pages/home/main_screen.dart';
 import 'package:loakulukota_app/services/http_service.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:loakulukota_app/globals.dart';
@@ -18,7 +19,7 @@ class AuthService {
     _http = getIt.get<HTTPService>();
   }
 
-  Future<Auth> login({required String username, required String password, required String token}) async{
+  Future<void> login({required String username, required String password, required String token}) async{
     Response? _response = await _http?.post('/auth/login', query: {
       'username' : username,
       'password' : password,
@@ -31,7 +32,7 @@ class AuthService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String _authData = json.encode(_login.toMap());
       prefs.setString('auth', _authData);
-      return _login;
+      const MainScreen().launch(navigatorKey.currentState!.overlay!.context);
     } else {
       awesome_dialog.AwesomeDialog(
         context: navigatorKey.currentState!.overlay!.context,
@@ -39,8 +40,8 @@ class AuthService {
         headerAnimationLoop: false,
         dialogType: awesome_dialog.DialogType.ERROR,
         showCloseIcon: true,
-        title: 'Perhatian',
-        desc: 'Anda sudah memiliki setoran aktif untuk rekening ini!',
+        title: 'Gagal Login!',
+        desc: 'Password atau username anda salah!',
         btnOkOnPress: () {},
         btnOkIcon: Icons.check_circle
       ).show();
