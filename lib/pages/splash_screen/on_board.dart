@@ -73,7 +73,7 @@ class _OnBoardState extends State<OnBoard> {
               },
               child: Text(
                 'Lewatkan',
-                style: GoogleFonts.notoSans(
+                style: GoogleFonts.openSans(
                   fontSize: 16.0,
                   color: kTitleColor,
                 ),
@@ -129,7 +129,7 @@ class _OnBoardState extends State<OnBoard> {
                                       child: Text(
                                         sliderList[index]['title'].toString(),
                                         textAlign: TextAlign.start,
-                                        style: GoogleFonts.notoSans(
+                                        style: GoogleFonts.openSans(
                                           fontSize: 30.0,
                                           fontWeight: FontWeight.w800,
                                           color: kTitleColor,
@@ -148,7 +148,7 @@ class _OnBoardState extends State<OnBoard> {
                                         textAlign: TextAlign.start,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 5,
-                                        style: GoogleFonts.notoSans(
+                                        style: GoogleFonts.openSans(
                                           fontSize: 18.0,
                                           color: kGreyTextColor,
                                         ),

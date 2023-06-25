@@ -38,6 +38,137 @@ class DashboardShortageTile extends StatelessWidget {
   }
 }
 
+class AnnouncementCard extends StatelessWidget {
+  final String announcement;
+  const AnnouncementCard({required Key key, required this.announcement})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        clipBehavior: Clip.antiAlias,
+        child: GestureDetector(
+          onTap: () {},
+          child: SizedBox(
+            width: context.width() - 70,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            announcement,
+                            style: kTextStyle.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18),
+                          ),
+                          Expanded(
+                              child: Text(
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus consequat odio, in tincidunt libero egestas at. Sed et condimentum enim. Proin dignissim nulla sit amet iaculis tempor. ",
+                                  overflow: TextOverflow.fade,
+                                  style: kTextStyle.copyWith(
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13))),
+                        ],
+                      )),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HomeTileItem {
+  final String title;
+  final String svg;
+  String redirect;
+  bool isEmptyTile;
+  HomeTileItem(
+      {required this.title,
+      required this.svg,
+      this.redirect = "-",
+      this.isEmptyTile = false});
+}
+
+class HomeTileCard extends StatelessWidget {
+  final HomeTileItem item;
+  const HomeTileCard({required Key key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return item.isEmptyTile == false
+        ? (Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
+              child: Material(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                clipBehavior: Clip.antiAlias,
+                elevation: 1,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.only(
+                          left: 22, right: 22, bottom: 15, top: 15),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          left: BorderSide(
+                            color: constPrimaryColor,
+                            width: 5.0,
+                          ),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(10), // radius of 10
+                                color:
+                                    constSecondaryColor // green as background color
+                                ),
+                            child: SvgPicture.asset(
+                              'assets/svg/${item.svg}.svg',
+                              width: 30,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(item.title,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: Color.fromARGB(255, 58, 58, 58)))
+                        ],
+                      )),
+                ),
+              ),
+            ),
+          ))
+        : (const Expanded(
+            child: Padding(padding: EdgeInsets.all(4)),
+          ));
+  }
+}
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -48,6 +179,28 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, dynamic> _auth = {};
   final DashboardService _dashboardService = DashboardService();
+  final List<String> announcements = [
+    "Pengumuman 1",
+    "Pengumuman 2",
+    "Pengumuman 3"
+  ];
+
+  final List<List<HomeTileItem>> _timesRow = [
+    [
+      HomeTileItem(title: "Tambah Kelahiran", svg: "child"),
+      HomeTileItem(title: "Tambah Pendatang", svg: "family"),
+    ],
+    [
+      HomeTileItem(title: "Tambah Pindah", svg: "moving"),
+      HomeTileItem(title: "Tambah Kematian", svg: "tombstone"),
+    ],
+    [
+      HomeTileItem(title: "Download Laporan", svg: "download"),
+      HomeTileItem(
+          title: "Tambah Kematian", svg: "tombstone", isEmptyTile: true),
+    ]
+  ];
+
   DashboardModel? _dashboard;
 
   @override
@@ -92,6 +245,13 @@ class _HomeScreenState extends State<HomeScreen> {
         titleSpacing: 0.0,
         iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: false,
+        title: Padding(
+            padding: const EdgeInsets.only(left: 20, top: 40, bottom: 40),
+            child: Text(
+              "Selamat Datang! \n${_auth['name']}",
+              maxLines: 2,
+              style: kTextStyle.copyWith(color: Colors.white, fontSize: 20.0),
+            )),
       ),
       body: RefreshIndicator(
         onRefresh: _refresh,
@@ -102,203 +262,79 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 20.0,
               ),
-              Container(
-                constraints: BoxConstraints(minHeight: context.height() - 80),
-                padding: const EdgeInsets.all(20.0),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0)),
-                  color: Colors.white,
-                ),
-                child: Column(
+              SizedBox(
+                height: 130,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selamat Datang! \n${_auth['name']}",
-                          maxLines: 2,
-                          style: kTextStyle.copyWith(
-                              color: constPrimaryColor, fontSize: 20.0),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    if (_auth['role'] == 'admin') ...[
-                      Material(
+                    ...announcements
+                        .map<Widget>((announcement) => AnnouncementCard(
+                            key: ObjectKey(announcement),
+                            announcement: announcement))
+                        .toList(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         clipBehavior: Clip.antiAlias,
-                        elevation: 4.5,
+                        color: constSecondaryColor,
                         child: GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, "inventory-create-in"),
-                          child: Container(
-                            width: context.width() - 40,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                left: BorderSide(
-                                  color: constSuccessColor,
-                                  width: 5.0,
-                                ),
-                              ),
-                            ),
+                          onTap: () {},
+                          child: SizedBox(
+                            width: context.width() - 70,
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: Container(
-                                      alignment: Alignment.topLeft,
-                                      padding: const EdgeInsets.all(23),
-                                      child: Row(
-                                        children: [
-                                          const Icon(Icons.move_to_inbox,
-                                              size: 50,
-                                              color: constSuccessColor),
-                                          const SizedBox(width: 12),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Tambah Barang Masuk",
-                                                style: kTextStyle.copyWith(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 18),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Text(
-                                                "Terakhir: ${_dashboard != null ? _dashboard!.inventoryIn : '-'}",
-                                                style: kTextStyle.copyWith(
-                                                    color: Colors.black54,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/svg/megaphone.svg',
+                                        width: 40,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      const Text("Lihat Semua Pengumuman")
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                    ],
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                constraints: BoxConstraints(minHeight: context.height() - 300),
+                padding: const EdgeInsets.all(20.0),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0)),
+                  color: Color.fromARGB(255, 250, 250, 250),
+                ),
+                child: Column(
+                  children: [
+                    if (_auth['role'] == 'admin') ...[],
                     const SizedBox(
-                      height: 20.0,
+                      height: 25.0,
                     ),
-                    Material(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                      clipBehavior: Clip.antiAlias,
-                      elevation: 4.5,
-                      child: GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                            context, "inventory-create-out"),
-                        child: Container(
-                          width: context.width() - 40,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            border: Border(
-                              left: BorderSide(
-                                color: constDangerColor,
-                                width: 5.0,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                    alignment: Alignment.topLeft,
-                                    padding: const EdgeInsets.all(23),
-                                    child: Row(
-                                      children: [
-                                        const Icon(Icons.outbox,
-                                            size: 50, color: constDangerColor),
-                                        const SizedBox(width: 12),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Tambah Barang Keluar",
-                                              style: kTextStyle.copyWith(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 18),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            if (_auth['role'] == 'admin') ...[
-                                              Text(
-                                                "Terakhir: ${_dashboard != null ? _dashboard!.inventoryOut : '-'}",
-                                                style: kTextStyle.copyWith(
-                                                    color: Colors.black54,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13),
-                                              )
-                                            ],
-                                          ],
-                                        )
-                                      ],
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 40.0,
-                    ),
-                    if (_auth['role'] == 'admin') ...[
-                      if (_dashboard != null &&
-                          _dashboard!.shortages.isNotEmpty) ...[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Stok Item Kurang',
-                              style: kTextStyle.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0),
-                            ),
-                          ],
-                        ),
-                        ..._dashboard!.shortages
-                            .map<Widget>((shortage) => DashboardShortageTile(
-                                key: ObjectKey(shortage), shortage: shortage))
-                            .toList()
-                      ] else ...[
-                        const SizedBox(
-                          height: 40.0,
-                        ),
-                        Column(
+                    ..._timesRow.map<Widget>((_tileRow) => Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SvgPicture.asset(
-                              'assets/svg/no-shortage.svg',
-                              width: 200,
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              "Kondisi stok terpenuhi!",
-                              style: constHeadingStyle,
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 10),
+                            ..._tileRow
+                                .map<Widget>((_tile) => HomeTileCard(
+                                    key: ObjectKey(_tile), item: _tile))
+                                .toList(),
                           ],
-                        ),
-                      ],
-                    ]
+                        ))
                   ],
                 ),
               ),

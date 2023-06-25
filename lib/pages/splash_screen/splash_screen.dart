@@ -112,7 +112,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: MediaQuery.of(context).size.height/3,),
             const Image(
               image: AssetImage('assets/images/logo_full.png'),
-              height: 300,
+              height: 200,
             ),
             const Spacer(),
             Center(
@@ -120,7 +120,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
                   'Version 1.0.0',
-                  style: GoogleFonts.notoSans(
+                  style: GoogleFonts.openSans(
                       color: constPrimaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0),

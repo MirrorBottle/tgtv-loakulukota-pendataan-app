@@ -12,20 +12,20 @@ const kHalfDay = Color(0xFFE8B500);
 const kGreenColor = Color(0xFF08BC85);
 
 const constPrimaryColor = Color.fromARGB(255, 1, 80, 40);
-const constSecondaryColor = Color.fromARGB(221, 206, 123, 145);
+const constSecondaryColor = Color(0xFF9ECE9A);
 const constDangerColor = Color.fromARGB(255, 190, 25, 25);
 const constSuccessColor = Color.fromARGB(255, 11, 125, 55);
 const constWarningColor = Color.fromARGB(255, 237, 152, 40);
 
-final kTextStyle = GoogleFonts.notoSans(
+final kTextStyle = GoogleFonts.openSans(
   color: kTitleColor,
 );
 
-final constTextStyle = GoogleFonts.notoSans(
+final constTextStyle = GoogleFonts.openSans(
   color: constPrimaryColor
 );
 
-final constHeadingStyle = GoogleFonts.notoSans(
+final constHeadingStyle = GoogleFonts.openSans(
   color: Colors.black,
   fontSize: 20,
   textStyle: const TextStyle(
@@ -33,12 +33,12 @@ final constHeadingStyle = GoogleFonts.notoSans(
   )
 );
 
-final constSubStyle = GoogleFonts.notoSans(
+final constSubStyle = GoogleFonts.openSans(
   color: Colors.grey,
   fontSize: 15,
 );
 
-final constListTitleStyle = GoogleFonts.notoSans(
+final constListTitleStyle = GoogleFonts.openSans(
   color: Colors.black,
   fontSize: 16,
   textStyle: const TextStyle(
@@ -70,7 +70,7 @@ final constSuccessButtonStyle = ButtonStyle(
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
 );
 
-final constInputLabelStyle = GoogleFonts.notoSans(
+final constInputLabelStyle = GoogleFonts.openSans(
   fontSize: 17,
 );
 

@@ -13,29 +13,6 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:loakulukota_app/pages/auth/sign_in.dart';
 import 'package:loakulukota_app/pages/auth/log_in.dart';
 
-// MESSAGE
-import 'package:loakulukota_app/pages/notification/notification_detail.dart';
-import 'package:loakulukota_app/pages/notification/notification_list.dart';
-
-// * VERIFICATION
-import 'package:loakulukota_app/pages/verification/verification_list.dart';
-import 'package:loakulukota_app/pages/verification/verification_detail.dart';
-
-
-// * HISTORY
-import 'package:loakulukota_app/pages/history/history_list.dart';
-import 'package:loakulukota_app/pages/history/history_detail.dart';
-
-
-// * INVENTORY
-import 'package:loakulukota_app/pages/inventory/inventory_create_in.dart';
-import 'package:loakulukota_app/pages/inventory/inventory_create_out.dart';
-
-// * ITEM
-import 'package:loakulukota_app/pages/item/item_list.dart';
-import 'package:loakulukota_app/pages/item/item_detail.dart';
-
-
 // SETTINGS
 import 'package:loakulukota_app/pages/settings/settings_change_password.dart';
 import 'package:loakulukota_app/pages/settings/settings_profil.dart';
@@ -106,7 +83,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        textTheme: GoogleFonts.notoSansTextTheme(
+        textTheme: GoogleFonts.openSansTextTheme(
           Theme.of(context).textTheme,
         ),
         // Add the line below to get horizontal sliding transitions for routes.
@@ -120,15 +97,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       routes: {
         'log-in': (context) => const LogInScreen(),
         'sign-in': (context) => const SignIn(),
-        'notification-list': (context) => const NotificationListScreen(),
-        'verification-list': (context) => const VerificationListScreen(),
-        'verification-detail': (context) => VerificationDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
-        'history-list': (context) => const HistoryListScreen(),
-        'history-detail': (context) => HistoryDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
-        'item-list': (context) => const ItemListScreen(),
-        'item-detail': (context) => ItemDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
-        'inventory-create-in': (context) => const InventoryCreateInScreen(),
-        'inventory-create-out': (context) => const InventoryCreateOutScreen(),
         'settings-profil': (context) => const SettingsProfilScreen(),
         'settings-change-password': (context) => const SettingsChangePasswordScreen(),
       },

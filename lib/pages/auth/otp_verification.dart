@@ -48,7 +48,7 @@ class _OtpVerificationState extends State<OtpVerification> {
             child: Text(
               'Verifikasi hanya dilakukan sekali saja',
               style:
-              GoogleFonts.notoSans(color: Colors.white, fontSize: 14.0),
+              GoogleFonts.openSans(color: Colors.white, fontSize: 14.0),
             ),
           ),
           Expanded(
@@ -99,7 +99,7 @@ class _OtpVerificationState extends State<OtpVerification> {
                     child: Text(
                       'Kirim Ulang OTP',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.notoSans(
+                      style: GoogleFonts.openSans(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500
                       ),

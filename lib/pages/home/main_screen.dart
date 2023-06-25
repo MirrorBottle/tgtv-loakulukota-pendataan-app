@@ -4,9 +4,8 @@ import 'package:loakulukota_app/pages/settings/settings.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'dart:convert';
 import 'home_screen.dart';
-import 'package:loakulukota_app/pages/verification/verification_list.dart';
-import 'package:loakulukota_app/pages/history/history_list.dart';
-import 'package:loakulukota_app/pages/item/item_list.dart';
+import 'package:loakulukota_app/pages/villager/villager_list.dart';
+
 
 
 
@@ -21,9 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   Map<String, dynamic> _auth = {};
   List _pageOptions = [
     const HomeScreen(),
-    const VerificationListScreen(),
-    const HistoryListScreen(),
-    const ItemListScreen(),
+    const VillagerListScreen(),
     const Settings(),
   ];
   int selectedPage = 0;
@@ -43,8 +40,7 @@ class _MainScreenState extends State<MainScreen> {
       _auth = json.decode(encodedAuth);
       _pageOptions = _auth['role'] == 'admin' ? _pageOptions : [
         const HomeScreen(),
-        const HistoryListScreen(),
-        const ItemListScreen(),
+        const VillagerListScreen(),
         const Settings(),
       ];
     });
@@ -56,9 +52,10 @@ class _MainScreenState extends State<MainScreen> {
         body: _pageOptions[selectedPage],
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
-              indicatorColor: Colors.redAccent,
+              indicatorColor: constPrimaryColor,
               labelTextStyle: MaterialStateProperty.all(const TextStyle(
                 fontSize: 15,
+                color: Colors.black
               ))),
           child: NavigationBar(
             animationDuration: const Duration(seconds: 1),
@@ -66,25 +63,21 @@ class _MainScreenState extends State<MainScreen> {
               const NavigationDestination(
                   icon: Icon(Icons.home_outlined),
                   label: 'Beranda',
-                  selectedIcon: Icon(Icons.home_filled)),
+                  selectedIcon: Icon(Icons.home_filled, color: Colors.white)),
               if(_auth['role'] == 'admin') ... [
                 const NavigationDestination(
                   icon: Icon(Icons.verified_outlined),
                   label: 'Validasi',
-                  selectedIcon: Icon(Icons.verified))
+                  selectedIcon: Icon(Icons.verified, color: Colors.white))
               ],
               const NavigationDestination(
-                  icon: Icon(Icons.watch_later_outlined),
-                  label: 'Histori',
-                  selectedIcon: Icon(Icons.watch_later)),
-              const NavigationDestination(
-                  icon: Icon(Icons.inventory_2_outlined),
-                  label: 'Gudang',
-                  selectedIcon: Icon(Icons.inventory_2)),
+                  icon: Icon(Icons.people_alt_outlined),
+                  label: 'Penduduk',
+                  selectedIcon: Icon(Icons.people, color: Colors.white)),
               const NavigationDestination(
                   icon: Icon(Icons.settings_outlined),
-                  label: 'Settings',
-                  selectedIcon: Icon(Icons.settings)),
+                  label: 'Pengaturan',
+                  selectedIcon: Icon(Icons.settings, color: Colors.white)),
             ],
             selectedIndex: selectedPage,
             onDestinationSelected: (int index) {
@@ -92,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
                 selectedPage = index;
               });
             },
-            backgroundColor: Colors.redAccent.withOpacity(0.4),
+            backgroundColor: constSecondaryColor,
           ),
         ));
   }

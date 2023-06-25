@@ -121,7 +121,7 @@ class _SettingsState extends State<Settings> {
                         context: context,
                         applicationVersion: '1.1.0',
                         applicationLegalese: 'Aplikasi PT. Anandita',
-                        applicationName: 'PT. Anandita App',
+                        applicationName: 'Loa Kulu Pendataan',
                         applicationIcon: const Image(
                           image: AssetImage('assets/images/logo_new.png'),
                           height: 50,
