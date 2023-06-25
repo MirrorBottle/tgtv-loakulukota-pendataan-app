@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loakulukota_app/models/announcement_data.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:loakulukota_app/constant.dart';
-import 'package:loakulukota_app/services/dashboard_service.dart';
+import 'package:loakulukota_app/services/announcement_service.dart';
 import 'package:loakulukota_app/models/dashboard_data.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,7 +40,7 @@ class DashboardShortageTile extends StatelessWidget {
 }
 
 class AnnouncementCard extends StatelessWidget {
-  final String announcement;
+  final AnnouncementModel announcement;
   const AnnouncementCard({required Key key, required this.announcement})
       : super(key: key);
 
@@ -66,7 +67,7 @@ class AnnouncementCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            announcement,
+                            announcement.title,
                             style: kTextStyle.copyWith(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w600,
@@ -74,7 +75,7 @@ class AnnouncementCard extends StatelessWidget {
                           ),
                           Expanded(
                               child: Text(
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus consequat odio, in tincidunt libero egestas at. Sed et condimentum enim. Proin dignissim nulla sit amet iaculis tempor. ",
+                                  announcement.content,
                                   overflow: TextOverflow.fade,
                                   style: kTextStyle.copyWith(
                                       color: Colors.black54,
@@ -178,12 +179,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Map<String, dynamic> _auth = {};
-  final DashboardService _dashboardService = DashboardService();
-  final List<String> announcements = [
-    "Pengumuman 1",
-    "Pengumuman 2",
-    "Pengumuman 3"
-  ];
+  List<AnnouncementModel> _announcements = [];
+
+  final AnnouncementService _announcementService = AnnouncementService();
+
 
   final List<List<HomeTileItem>> _timesRow = [
     [
@@ -201,8 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ]
   ];
 
-  DashboardModel? _dashboard;
-
   @override
   void initState() {
     super.initState();
@@ -215,14 +212,22 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String encodedAuth = prefs.getString('auth') ?? "{}";
 
+    List<AnnouncementModel> _announcementsData = await _announcementService.latest();
     setState(() {
       _auth = json.decode(encodedAuth);
+      _announcements = _announcementsData;
     });
     EasyLoading.dismiss();
   }
 
   Future<void> _refresh() async {
-    
+    EasyLoading.show(
+        status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
+    List<AnnouncementModel> _announcementsData = await _announcementService.latest();
+    setState(() {
+      _announcements = _announcementsData;
+    });
+    EasyLoading.dismiss();
   }
 
   @override
@@ -259,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...announcements
+                    ..._announcements
                         .map<Widget>((announcement) => AnnouncementCard(
                             key: ObjectKey(announcement),
                             announcement: announcement))
