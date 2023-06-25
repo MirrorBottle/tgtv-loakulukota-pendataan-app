@@ -121,7 +121,8 @@ class HomeTileCard extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 elevation: 1,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(
+                              context, item.redirect),
                   child: Container(
                       alignment: Alignment.topLeft,
                       padding: const EdgeInsets.only(
@@ -186,17 +187,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<List<HomeTileItem>> _timesRow = [
     [
-      HomeTileItem(title: "Tambah Kelahiran", svg: "child"),
-      HomeTileItem(title: "Tambah Pendatang", svg: "family"),
+      HomeTileItem(title: "Tambah Kelahiran", svg: "child", redirect: "birth-form"),
+      HomeTileItem(title: "Tambah Pendatang", svg: "family", redirect: "moving-in-form"),
     ],
     [
-      HomeTileItem(title: "Tambah Pindah", svg: "moving"),
-      HomeTileItem(title: "Tambah Kematian", svg: "tombstone"),
+      HomeTileItem(title: "Tambah Pindah", svg: "moving", redirect: "moving-out-form"),
+      HomeTileItem(title: "Tambah Kematian", svg: "tombstone", redirect: "death-form"),
     ],
     [
-      HomeTileItem(title: "Download Laporan", svg: "download"),
-      HomeTileItem(
-          title: "Tambah Kematian", svg: "tombstone", isEmptyTile: true),
+      HomeTileItem(title: "Download Laporan", svg: "download", redirect: "report-list"),
+      HomeTileItem(title: "Informasi Penduduk", svg: "folder", redirect: "information-list"),
     ]
   ];
 
@@ -277,7 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         clipBehavior: Clip.antiAlias,
                         color: constSecondaryColor,
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () => Navigator.pushNamed(
+                              context, "announcement-list"),
                           child: SizedBox(
                             width: context.width() - 70,
                             child: Row(

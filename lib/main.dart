@@ -1,6 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loakulukota_app/pages/announcement/announcement_list.dart';
+import 'package:loakulukota_app/pages/birth/birth_form.dart';
+import 'package:loakulukota_app/pages/birth/birth_list.dart';
+import 'package:loakulukota_app/pages/death/death_form.dart';
+import 'package:loakulukota_app/pages/death/death_list.dart';
+import 'package:loakulukota_app/pages/information/information_list.dart';
+import 'package:loakulukota_app/pages/moving_in/moving_in_form.dart';
+import 'package:loakulukota_app/pages/moving_in/moving_in_list.dart';
+import 'package:loakulukota_app/pages/moving_out/moving_out_form.dart';
+import 'package:loakulukota_app/pages/moving_out/moving_out_list.dart';
+import 'package:loakulukota_app/pages/report/report_list.dart';
 import 'package:loakulukota_app/pages/splash_screen/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -16,6 +27,22 @@ import 'package:loakulukota_app/pages/auth/log_in.dart';
 // SETTINGS
 import 'package:loakulukota_app/pages/settings/settings_change_password.dart';
 import 'package:loakulukota_app/pages/settings/settings_profil.dart';
+
+// * ANNOUNCEMENT
+
+// * INFORMATION
+
+// * VILLAGERS
+
+// * BIRTH
+
+// * DEATH
+
+// * MOVING-IN
+
+// * MOVING-OUT
+
+// * REPORT
 
 import 'dart:convert';
 
@@ -99,6 +126,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         'sign-in': (context) => const SignIn(),
         'settings-profil': (context) => const SettingsProfilScreen(),
         'settings-change-password': (context) => const SettingsChangePasswordScreen(),
+        'birth-list':(context) => const BirthListScreen(),
+        'birth-form':(context) => const BirthFormScreen(),
+        'moving-in-list': (context) => const MovingInListScreen(),
+        'moving-in-form':(context) => const MovingInFormScreen(),
+        'moving-out-list':(context) => const MovingOutListScreen(),
+        'moving-out-form':(context) => const MovingOutFormScreen(),
+        'death-form': (context) => const DeathFormScreen(),
+        'death-list':(context) => const DeathListScreen(),
+        'report-list': (context) => const ReportListScreen(),
+        'information-list': (context) => const InformationListScreen(),
+        'announcement-list': (context) => const AnnouncementListScreen()
       },
     );
   }

@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   List _pageOptions = [
     const HomeScreen(),
     const VillagerListScreen(),
+    const VillagerListScreen(),
     const Settings(),
   ];
   int selectedPage = 0;
@@ -40,6 +41,7 @@ class _MainScreenState extends State<MainScreen> {
       _auth = json.decode(encodedAuth);
       _pageOptions = _auth['role'] == 'admin' ? _pageOptions : [
         const HomeScreen(),
+        const VillagerListScreen(),
         const VillagerListScreen(),
         const Settings(),
       ];

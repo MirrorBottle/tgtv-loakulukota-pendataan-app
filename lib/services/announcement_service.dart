@@ -27,4 +27,22 @@ class AnnouncementService {
     }
   }
 
+  Future<List<AnnouncementModel>> list({ String keyword='', int page=1, int limit=10 }) async {
+    Response? _response = await _http?.get("/announcement", query: {
+      "keyword": keyword,
+      "page": page,
+      "limit": limit,
+    });
+    _response.toString();
+    if(_response?.statusCode == 200){
+      Map _data = _response?.data;
+      List<AnnouncementModel> _items = _data['data'].map<AnnouncementModel>((_item){
+        return AnnouncementModel.fromJson(_item);
+      }).toList();
+      return _items;
+    }else{
+      throw Exception('Couldn\'t access auth.');
+    }
+  }
+
 }
