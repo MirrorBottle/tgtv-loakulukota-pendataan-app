@@ -53,7 +53,11 @@ class AnnouncementCard extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         clipBehavior: Clip.antiAlias,
         child: GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(
+            context,
+            'announcement-detail',
+            arguments: {"id": announcement.id},
+          ),
           child: SizedBox(
             width: context.width() - 70,
             child: Row(

@@ -42,7 +42,6 @@ class _MainScreenState extends State<MainScreen> {
       _pageOptions = _auth['role'] == 'admin' ? _pageOptions : [
         const HomeScreen(),
         const VillagerListScreen(),
-        const VillagerListScreen(),
         const Settings(),
       ];
     });

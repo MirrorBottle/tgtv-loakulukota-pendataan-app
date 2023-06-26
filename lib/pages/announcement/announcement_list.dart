@@ -17,7 +17,11 @@ class AnnouncementListTile extends StatelessWidget {
       children: [
         const SizedBox(height: 10),
         ListTile(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(
+            context,
+            'announcement-detail',
+            arguments: {"id": item.id},
+          ),
           minLeadingWidth: 20,
           title: Text(item.title, style: const TextStyle(color: Colors.black)),
           subtitle: Column(

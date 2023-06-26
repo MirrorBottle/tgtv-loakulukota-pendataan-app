@@ -16,6 +16,7 @@ import 'package:loakulukota_app/pages/auth/sign_in.dart';
 import 'package:loakulukota_app/pages/auth/log_in.dart';
 import 'package:loakulukota_app/pages/auth/maintenance.dart';
 import 'package:flutter/foundation.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -24,7 +25,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -36,36 +36,27 @@ class _SplashScreenState extends State<SplashScreen> {
     final configFile = await rootBundle.loadString("assets/config/main.json");
     final configData = jsonDecode(configFile);
 
-    getIt.registerSingleton<AppConfig>(
-        AppConfig(
-            BASE_API_URL: configData['BASE_API_URL'],
-            BASE_IMAGE_API_URL: configData['BASE_IMAGE_API_URL'],
-            API_KEY: configData['API_KEY']
-        )
-    );
+    getIt.registerSingleton<AppConfig>(AppConfig(
+        BASE_API_URL: configData['BASE_API_URL'],
+        BASE_IMAGE_API_URL: configData['BASE_IMAGE_API_URL'],
+        API_KEY: configData['API_KEY']));
 
-    getIt.registerSingleton<HTTPService>(
-        HTTPService()
-    );
+    getIt.registerSingleton<HTTPService>(HTTPService());
 
-    getIt.registerSingleton<AuthService>(
-        AuthService()
-    );
+    getIt.registerSingleton<AuthService>(AuthService());
   }
 
   Future<void> init() async {
     await Future.delayed(const Duration(seconds: 2));
 
     await Future.delayed(const Duration(seconds: 2)).then(
-          (_) => _setup(context).then(
-            (_) => goTo(),
+      (_) => _setup(context).then(
+        (_) => goTo(),
       ),
     );
     defaultBlurRadius = 10.0;
     defaultSpreadRadius = 0.5;
-
   }
-
 
   void goTo() async {
     finish(context);
@@ -74,13 +65,13 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isFirst = prefs.getBool('isFirst') ?? true;
     bool isLogin = prefs.getBool('isLogin') ?? false;
     Map<dynamic, dynamic> isMaintenance = await _authService.maintenance();
-    if(isMaintenance['status']) {
+    if (isMaintenance['status']) {
       const MaintenanceScreen().launch(context);
     } else {
-      if(isFirst) {
-        const OnBoard().launch(context,isNewTask: true);
+      if (isFirst) {
+        const OnBoard().launch(context, isNewTask: true);
       } else {
-        if(isLogin) {
+        if (isLogin) {
           // if(defaultTargetPlatform != TargetPlatform.windows) {
           //   const LogInScreen().launch(context);
           // } else {
@@ -92,7 +83,6 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       }
     }
-    
   }
 
   @override
@@ -102,34 +92,45 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: kBgColor,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height/3,),
-            const Image(
-              image: AssetImage('assets/images/logo_full.png'),
-              height: 200,
-            ),
-            const Spacer(),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'Version 1.0.0',
-                  style: GoogleFonts.openSans(
-                      color: constPrimaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0),
+    return Stack(
+      children: [
+        Image.asset(
+          "assets/images/splash.png",
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.fill,
+        ),
+        Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.transparent,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+              ),
+              const Image(
+                image: AssetImage('assets/images/logo_full.png'),
+                height: 200,
+              ),
+              const Spacer(),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    'Version 1.0.0',
+                    style: GoogleFonts.openSans(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

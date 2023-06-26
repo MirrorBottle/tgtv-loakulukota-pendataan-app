@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'package:loakulukota_app/constant.dart';
-import 'package:loakulukota_app/models/villager_data.dart';
+import 'package:loakulukota_app/models/information_data.dart';
 import 'package:loakulukota_app/services/item_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:awesome_dialog/awesome_dialog.dart' as awesome_dialog;
@@ -16,7 +16,53 @@ class InformationListScreen extends StatefulWidget {
 }
 
 class _InformationListScreenState extends State<InformationListScreen> {
-
+  final List<InformationModel> _informations = [
+    InformationModel(
+        icon: "people",
+        title: "Total Populasi",
+        value: "236 Orang",
+        redirect: "-"),
+    InformationModel(
+        icon: "family",
+        title: "Total Keluarga",
+        value: "15 Keluarga",
+        redirect: "-"),
+    InformationModel(
+        icon: "man",
+        title: "Penduduk Laki-laki",
+        value: "100 Orang",
+        redirect: "-"),
+    InformationModel(
+        icon: "arab-woman",
+        title: "Penduduk Perempuan",
+        value: "136 Orang",
+        redirect: "-"),
+    InformationModel(
+        icon: "children",
+        title: "Anak-anak di Bawah 6 Tahun",
+        value: "10 Orang",
+        redirect: "-"),
+    InformationModel(
+        icon: "child",
+        title: "Kelahiran",
+        value: "236 Anak",
+        redirect: "-"),
+    InformationModel(
+        icon: "family",
+        title: "Pendatang",
+        value: "236 Orang",
+        redirect: "-"),
+    InformationModel(
+        icon: "tombstone",
+        title: "Kematian",
+        value: "236 Orang",
+        redirect: "-"),
+    InformationModel(
+        icon: "moving",
+        title: "Pindah",
+        value: "236 Orang",
+        redirect: "-"),
+  ];
   @override
   void initState() {
     super.initState();
@@ -41,15 +87,6 @@ class _InformationListScreenState extends State<InformationListScreen> {
     // EasyLoading.dismiss();
   }
 
-  void _handleSearch(String keyword) async {
-    // EasyLoading.show(status: 'Mohon Ditunggu', maskType: EasyLoadingMaskType.black);
-    // List<InformationListModel> _itemsData = await _itemService.list(keyword: keyword);
-    // setState(() {
-    //   _items = _itemsData;
-    // });
-    // EasyLoading.dismiss();
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -65,11 +102,15 @@ class _InformationListScreenState extends State<InformationListScreen> {
             iconTheme: const IconThemeData(color: Colors.white),
             automaticallyImplyLeading: false,
             title: Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 40.0, bottom: 25),
+              padding: const EdgeInsets.only(left: 20.0, top: 50.0, bottom: 25),
               child: Text(
                 'Informasi Penduduk',
                 style: kTextStyle.copyWith(color: Colors.white, fontSize: 20.0),
               ),
+            ),
+            leading: const Padding(
+              padding: EdgeInsets.only(top: 28.0),
+              child: BackButton(),
             ),
           ),
           body: RefreshIndicator(
@@ -94,6 +135,34 @@ class _InformationListScreenState extends State<InformationListScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
+                      ..._informations
+                          .map<Widget>((_information) => ListTile(
+                                onTap: () {},
+                                minLeadingWidth: 20,
+                                title: Text(_information.title,
+                                    style: const TextStyle(color: Colors.black)),
+                                leading: Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          10), // radius of 10
+                                      color:
+                                          constSecondaryColor // green as background color
+                                      ),
+                                  child: SvgPicture.asset(
+                                    'assets/svg/${_information.icon}.svg',
+                                    width: 38,
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 2),
+                                    Text(_information.value)
+                                  ],
+                                ),
+                              ))
+                          .toList(),
                     ],
                   ),
                 ),

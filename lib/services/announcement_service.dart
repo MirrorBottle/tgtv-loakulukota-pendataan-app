@@ -45,4 +45,15 @@ class AnnouncementService {
     }
   }
 
+  Future<AnnouncementModel> detail({ required int id }) async {
+    Response? _response = await _http?.get("/announcement/$id");
+    if(_response?.statusCode == 200){
+      Map _data = _response?.data;
+      AnnouncementModel _item = AnnouncementModel.fromJson(_data['data']);
+      return _item;
+    }else{
+      throw Exception('Couldn\'t access auth.');
+    }
+  }
+
 }

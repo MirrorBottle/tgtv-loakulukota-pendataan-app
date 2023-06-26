@@ -22,18 +22,18 @@ class _OnBoardState extends State<OnBoard> {
   List<Map<String, dynamic>> sliderList = [
     {
       "icon": 'assets/images/onboard1.png',
-      "title": 'Inventaris Kita Bersama!',
-      "description": 'Membuat inventaris pasti dengan meminimalisir kesalahan data!',
+      "title": 'Basis Data Penduduk Terpadu!',
+      "description": 'Membuat data kependudukan Loa Kulu Kota terintegrasi!',
     },
     {
       "icon": 'assets/images/onboard2.png',
-      "title": 'Menjaga Profesionalitas!',
-      "description": 'Membuat professionalitas terdepan terhadap semua pekerja!',
+      "title": 'Memudahkan Pendataan Keluarga!',
+      "description": 'Mencatat pendatang, pindah, kematian, dan kelahiran secara mudah!',
     },
     {
       "icon": 'assets/images/onboard3.png',
-      "title": 'Mari Kita Mulai, Oke?',
-      "description": 'Mudah aja kok penggunaan aplikasi ini.',
+      "title": 'Tempat Informasi dan Pengumuman',
+      "description": 'Pengumuman dapat dibaca dengan mudah dan selalu ter-update',
     },
   ];
 
@@ -131,7 +131,7 @@ class _OnBoardState extends State<OnBoard> {
                                         textAlign: TextAlign.start,
                                         style: GoogleFonts.openSans(
                                           fontSize: 30.0,
-                                          fontWeight: FontWeight.w800,
+                                          fontWeight: FontWeight.w600,
                                           color: kTitleColor,
                                         ),
                                       ),

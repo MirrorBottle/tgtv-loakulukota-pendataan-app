@@ -1,3 +1,29 @@
+import 'dart:convert';
+
+class AuthNeighborhood {
+  int id;
+  String name;
+
+  AuthNeighborhood({
+    required this.id,
+    required this.name,
+  });
+
+  factory AuthNeighborhood.fromJson(Map<String, dynamic> _json) {
+    return AuthNeighborhood(
+      id: _json['id'],
+      name: _json['name'],
+    );
+  }
+
+  Map<String, dynamic> toJson(){
+  return {
+    "id": id,
+    "name": name
+  };
+}
+}
+
 class Auth {
   int id;
   String username;
@@ -10,6 +36,8 @@ class Auth {
   String? createdAt;
   String? updatedAt;
   String bearerToken;
+  List<AuthNeighborhood> neighborhoods;
+
 
   Auth({
     required this.id,
@@ -21,7 +49,8 @@ class Auth {
     required this.rememberToken,
     required this.createdAt,
     required this.updatedAt,
-    required this.bearerToken
+    required this.bearerToken,
+    this.neighborhoods = const []
   });
 
   factory Auth.fromJson(Map<String, dynamic> _json) {
@@ -36,6 +65,9 @@ class Auth {
       createdAt: _json['createdAt'],
       updatedAt: _json['updatedAt'],
       bearerToken: _json['bearerToken'],
+      neighborhoods: _json['neighborhoods'].map<AuthNeighborhood>((_neighborhood){
+        return AuthNeighborhood.fromJson(_neighborhood);
+      }).toList(),
     );
   }
 
@@ -51,6 +83,7 @@ class Auth {
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'bearerToken': bearerToken,
+      'neighborhoods': jsonEncode(neighborhoods),
     };
   }
 }

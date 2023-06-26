@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loakulukota_app/pages/announcement/announcement_detail.dart';
 import 'package:loakulukota_app/pages/announcement/announcement_list.dart';
 import 'package:loakulukota_app/pages/birth/birth_form.dart';
 import 'package:loakulukota_app/pages/birth/birth_list.dart';
@@ -136,7 +137,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         'death-list':(context) => const DeathListScreen(),
         'report-list': (context) => const ReportListScreen(),
         'information-list': (context) => const InformationListScreen(),
-        'announcement-list': (context) => const AnnouncementListScreen()
+        'announcement-list': (context) => const AnnouncementListScreen(),
+        'announcement-detail':(context) => AnnouncementDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>)
       },
     );
   }
