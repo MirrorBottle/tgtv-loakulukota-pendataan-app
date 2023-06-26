@@ -18,6 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:loakulukota_app/globals.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:loakulukota_app/pages/villager/villager_detail.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 
@@ -138,7 +139,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         'report-list': (context) => const ReportListScreen(),
         'information-list': (context) => const InformationListScreen(),
         'announcement-list': (context) => const AnnouncementListScreen(),
-        'announcement-detail':(context) => AnnouncementDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>)
+        'announcement-detail':(context) => AnnouncementDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
+        'villager-detail':(context) => VillagerDetailScreen(args: ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>)
+
       },
     );
   }

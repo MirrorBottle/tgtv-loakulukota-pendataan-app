@@ -50,11 +50,11 @@ class VillagerService {
     }
   }
 
-  Future<VillagerListModel> detail({required int id}) async {
+  Future<VillagerDetailModel> detail({required int id}) async {
     Response? _response = await _http?.get("/villager/$id");
     if (_response?.statusCode == 200) {
       Map _data = _response?.data;
-      VillagerListModel _item = VillagerListModel.fromJson(_data['data']);
+      VillagerDetailModel _item = VillagerDetailModel.fromJson(_data['data']);
       return _item;
     } else {
       throw Exception('Couldn\'t access auth.');

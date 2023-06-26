@@ -9,15 +9,15 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:loakulukota_app/constant.dart';
 import 'dart:convert';
 
-class VillagerDetailScreen extends StatefulWidget {
+class VillagerFamilyScreen extends StatefulWidget {
   final Map<String, dynamic>? args;
-  const VillagerDetailScreen({this.args, Key? key}) : super(key: key);
+  const VillagerFamilyScreen({this.args, Key? key}) : super(key: key);
 
   @override
-  _VillagerDetailScreenState createState() => _VillagerDetailScreenState();
+  _VillagerFamilyScreenState createState() => _VillagerFamilyScreenState();
 }
 
-class _VillagerDetailScreenState extends State<VillagerDetailScreen> {
+class _VillagerFamilyScreenState extends State<VillagerFamilyScreen> {
   final VillagerService _villagerService = VillagerService();
   VillagerDetailModel? _villager;
 
